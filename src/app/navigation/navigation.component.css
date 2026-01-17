@@ -1,0 +1,51 @@
+.mat-icon {
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 32px !important;
+    align-content: center;
+    text-align: center;
+    color: white;
+}
+
+.mat-person {
+    color: black;
+
+    &:hover {
+        color: var(--color-red-900);
+    }
+}
+
+.mat-logout {
+    color: black;
+
+}
+
+.enter-animation {
+    animation-name: animate-menu;
+    animation-duration: 0.8s;
+}
+
+.leave-animation {
+    animation-name: close-menu;
+    animation-duration: 0.8s;
+}
+
+@keyframes animate-menu {
+    from {
+        translate: 100%;
+    }
+
+    to {
+        translate: 0%;
+    }
+}
+
+@keyframes close-menu {
+    from {
+        translate: 0%;
+    }
+
+    to {
+        translate: 100%;
+    }
+}

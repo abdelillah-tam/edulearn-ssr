@@ -1,0 +1,118 @@
+<div class="flex min-h-dvh flex-col">
+  <header class="z-50 w-full border-b border-b-gray-300 bg-white px-4 md:px-8">
+    <app-navigation></app-navigation>
+  </header>
+  <main class="flex grow flex-col bg-white" [class.justify-center]="enrolled">
+    @if (enrolled) {
+      <app-enrolled class="flex grow flex-col"></app-enrolled>
+    } @else {
+      <app-main-section
+        [title]="title"
+        [subtitle]="subtitle"
+        [paragraph]="paragraph"
+      ></app-main-section>
+      <div class="flex grow flex-col justify-between px-4 py-6 md:px-8">
+        <ul class="flex flex-col gap-4 md:flex-row">
+          <li class="basis-3/5">
+            <input
+              class="input-style"
+              type="text"
+              placeholder="Search Courses..."
+              [formControl]="searchFormControl"
+            />
+          </li>
+          <li class="relative basis-1/5">
+            <button
+              class="bg-custom-gray flex h-10 w-full cursor-pointer items-center justify-between rounded-xl px-2"
+              type="button"
+              (click)="closedCategories = !closedCategories"
+            >
+              <mat-icon
+                class="material-symbols-rounded"
+                fontIcon="filter_alt"
+              ></mat-icon>
+              <p>{{ selectedCategory }}</p>
+              <mat-icon
+                class="material-symbols-rounded"
+                fontIcon="stat_minus_1"
+              ></mat-icon>
+            </button>
+            <category-list
+              class="z-300"
+              [closedCategories]="closedCategories"
+              [categoryList]="categoryList"
+              (selectedCategory)="setSelectedCategory($event)"
+            ></category-list>
+          </li>
+          <li class="relative basis-1/5">
+            <button
+              class="bg-custom-gray flex h-10 w-full cursor-pointer items-center justify-between rounded-xl px-2"
+              type="button"
+              (click)="closedDifficulties = !closedDifficulties"
+            >
+              <p>{{ selectedDifficulty }}</p>
+              <mat-icon
+                class="material-symbols-rounded"
+                fontIcon="stat_minus_1"
+              ></mat-icon>
+            </button>
+            <difficulty-list
+              class="z-300"
+              [closedDifficulty]="closedDifficulties"
+              [difficultyList]="difficultyList"
+              (selectedDifficulty)="setSelectedDifficulty($event)"
+            ></difficulty-list>
+          </li>
+        </ul>
+
+        <ul
+          class="relative mt-8 flex grow flex-col justify-center gap-8"
+          [class.py-6]="isLoading && isEmptyCourses()"
+        >
+          @if (isLoading) {
+            <loading
+              class="z-10 h-full w-full"
+              [isLoading]="isLoading"
+              [diameter]="40"
+              [class.absolute]="courses?.data?.length"
+            ></loading>
+          }
+          @for (item of courses?.data; track $index) {
+            <li>
+              <app-course-item
+                [course]="item"
+                (enrolled)="enrolled = $event"
+              ></app-course-item>
+            </li>
+          } @empty {
+            @if (!isLoading) {
+              <li class="flex items-center justify-center gap-1">
+                <p class="text-center text-gray-500">
+                  No Courses In This Page.
+                </p>
+                <a
+                  class="text-red-theme cursor-pointer"
+                  (click)="backToFirstPage()"
+                  >Go Back</a
+                >
+              </li>
+            }
+          }
+          @if (courses?.data?.length) {
+            <li>
+              <mat-paginator
+                [length]="courses?.last_page"
+                [pageSize]="1"
+                (page)="handlePage($event)"
+              ></mat-paginator>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </main>
+
+  <footer>
+    <app-footer></app-footer>
+  </footer>
+</div>

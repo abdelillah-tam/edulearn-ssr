@@ -1,0 +1,51 @@
+<ul
+  class="flex justify-around overflow-hidden rounded-xl border border-gray-300 bg-white"
+>
+  <li class="relative basis-2/5 overflow-hidden bg-gray-900 xl:basis-2/8">
+    <p
+      class="bg-red-theme absolute right-0 mt-2 mr-2 rounded-xl px-3 py-1.5 text-xs font-bold text-white"
+    >
+      {{ course()?.category }}
+    </p>
+
+    <img class="h-full w-full object-cover" [src]="course()?.thumbnail" />
+  </li>
+  <li
+    class="flex basis-3/5 flex-col justify-between gap-4 overflow-hidden p-2 px-4 xl:basis-6/8"
+  >
+    <p class="cursor-pointer font-bold">
+      {{ course()?.title }}
+    </p>
+    <p class="overflow-hidden text-ellipsis whitespace-nowrap text-gray-500">
+      {{ shortDescription(course()?.description) }}
+    </p>
+    <ul
+      class="flex flex-col justify-start gap-2 text-gray-500 md:flex-row md:items-center md:gap-8"
+    >
+      <li class="flex items-center gap-1">
+        <mat-icon class="material-symbols-rounded" fontIcon="group"></mat-icon
+        >{{ course()?.users_count | number }}
+      </li>
+      <li class="flex items-center gap-1">
+        <mat-icon
+          class="material-symbols-rounded"
+          fontIcon="schedule"
+        ></mat-icon
+        >{{ course()?.duration }}
+      </li>
+    </ul>
+    <p class="">by {{ course()?.instructor_user?.fullname }}</p>
+    <div class="flex flex-col gap-2 md:flex-row md:justify-end">
+      <button type="button" class="white-btn" (click)="moveToDetails()">
+        View Details
+      </button>
+      <button type="button" class="red-btn" (click)="enroll()">
+        @if (enrollLoading) {
+          <mat-spinner class="enroll-loading" [diameter]="25"></mat-spinner>
+        } @else {
+          Enroll Now
+        }
+      </button>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,38 @@
+.mat-icon {
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 32px !important;
+    align-content: center;
+    text-align: center;
+    color: var(--color-red-theme);
+}
+
+.achievement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: calc((1 / 2 * 100%) - 2rem);
+
+    @media (width >=40rem) {
+        flex-basis: calc(var(--spacing) * 0);
+    }
+}
+
+.achievement p {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+    color: var(--color-red-theme);
+
+    &+p {
+        color: var(--color-gray-500);
+        text-align: center;
+        font-size: var(--text-base);
+    }
+}
+
+/*.mat-mdc-snackbar-surface {
+    background-color: var(--color-green-600) !important;
+    font-family: 'SamsungOne' !important;
+    border-radius: var(--radius-xl) !important;
+}
+*/

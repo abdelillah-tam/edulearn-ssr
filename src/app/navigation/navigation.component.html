@@ -1,0 +1,137 @@
+<nav class="flex h-24 flex-col items-center justify-center bg-white">
+  @let loggedIn = isLoggedIn | async;
+  <ul class="flex w-full justify-between">
+    <li
+      class="flex cursor-pointer items-center px-2 select-none"
+      routerLink="/"
+    >
+      <div class="bg-red-theme flex rounded-xl p-2">
+        <mat-icon
+          class="material-symbols-rounded mat-icon"
+          fontIcon="school"
+        ></mat-icon>
+      </div>
+      <h1 class="px-1 text-xl">EduLearn</h1>
+    </li>
+    @if (!isSmallScreen) {
+      <li>
+        <app-nav-menu></app-nav-menu>
+      </li>
+    }
+    <li class="flex items-center justify-end">
+      @if (loggedIn == false) {
+        @if (!isSmallScreen) {
+          <button class="red-btn" routerLink="/signin">Sign In</button>
+        }
+      } @else if (loggedIn == true) {
+        <button
+          class="flex items-center"
+          matTooltip="Dashboard"
+          routerLink="/dashboard"
+        >
+          <mat-icon
+            class="material-symbols-rounded mat-person cursor-pointer rounded-full px-2 py-2 hover:bg-red-200"
+            fontIcon="person"
+          ></mat-icon>
+        </button>
+        @if (!isSmallScreen) {
+          @if (isLoggingOut) {
+            <mat-spinner [diameter]="25"></mat-spinner>
+          } @else {
+            <button
+              class="flex items-center"
+              matTooltip="Log Out"
+              (click)="logout()"
+            >
+              <mat-icon
+                class="material-symbols-rounded mat-person cursor-pointer rounded-full px-2 py-2 hover:bg-red-200"
+                fontIcon="logout"
+              ></mat-icon>
+            </button>
+          }
+        }
+      } @else {
+        <div class="flex items-center px-2">
+          <mat-spinner [diameter]="25"></mat-spinner>
+        </div>
+      }
+      @if (isSmallScreen) {
+        <button class="flex cursor-pointer items-center" (click)="openMenu()">
+          <mat-icon
+            class="material-symbols-rounded mat-logout"
+            fontIcon="menu"
+          ></mat-icon>
+        </button>
+        @if (isOpenMenu) {
+          <div
+            class="absolute right-0 bottom-0 z-100 flex h-full w-full flex-col items-stretch gap-6 bg-white px-4 py-4"
+            animate.enter="enter-animation"
+            animate.leave="leave-animation"
+          >
+            <div class="flex justify-between">
+              <input
+                class="bg-custom-gray border-red-theme h-10 grow rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                type="text"
+                placeholder="Search courses ..."
+              />
+              <button class="cursor-pointer" (click)="closeMenu()">
+                <mat-icon
+                  class="material-symbols-rounded mat-logout"
+                  fontIcon="close"
+                ></mat-icon>
+              </button>
+            </div>
+            <div class="flex flex-col">
+              <h3 class="text-lg text-gray-500">Menu</h3>
+              <app-nav-menu [isOpenMenu]="isOpenMenu"></app-nav-menu>
+            </div>
+            <div class="flex flex-col">
+              <h3 class="text-lg text-gray-500">Courses By Category</h3>
+              <ul class="flex flex-col gap-2">
+                @for (item of categoryList; track $index) {
+                  <li>
+                    <a
+                      class="hover:text-red-theme cursor-pointer text-lg font-bold"
+                      >{{ item }}</a
+                    >
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="flex flex-col">
+              <h3 class="text-lg text-gray-500">Authentication</h3>
+
+              <ul class="flex flex-col gap-2">
+                @if (loggedIn == false) {
+                  <li>
+                    <a
+                      class="hover:text-red-theme cursor-pointer text-base font-bold"
+                      routerLink="/signin"
+                      >Sign In</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="hover:text-red-theme cursor-pointer text-base font-bold"
+                      routerLink="/signup"
+                      >Sign Up</a
+                    >
+                  </li>
+                } @else {
+                  <li>
+                    <a
+                      class="hover:text-red-theme cursor-pointer text-base font-bold"
+                      (click)="logout()"
+                      >Log Out</a
+                    >
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+      }
+    </li>
+  </ul>
+</nav>
