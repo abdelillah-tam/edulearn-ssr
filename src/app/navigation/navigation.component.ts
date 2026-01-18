@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit {
     private authService: AuthService,
     private renderer: Renderer2,
   ) {
-    if (
+    /*if (
       sessionStorage.getItem('signed') != null &&
       Boolean(sessionStorage.getItem('signed')) == true
     ) {
@@ -54,7 +54,7 @@ export class NavigationComponent implements OnInit {
           }
         }),
       );
-    }
+    }*/
   }
 
   ngOnInit(): void {
@@ -75,7 +75,7 @@ export class NavigationComponent implements OnInit {
     this.isLoggingOut = true;
     this.authService.logout().subscribe((response) => {
       if (response === true) {
-        sessionStorage.clear();
+        //sessionStorage.clear();
 
         window.location.reload();
       }
@@ -94,11 +94,11 @@ export class NavigationComponent implements OnInit {
 
   changeBodyPosition() {
     if (this.isOpenMenu) {
-      this.renderer.addClass(document.body, 'fixed');
-      this.renderer.addClass(document.body, 'w-full');
+      //this.renderer.addClass(document.body, 'fixed');
+     // this.renderer.addClass(document.body, 'w-full');
     } else {
-      this.renderer.removeClass(document.body, 'fixed');
-      this.renderer.removeClass(document.body, 'w-full');
+      //this.renderer.removeClass(document.body, 'fixed');
+      //this.renderer.removeClass(document.body, 'w-full');
     }
   }
 }

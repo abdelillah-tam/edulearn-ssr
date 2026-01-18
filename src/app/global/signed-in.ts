@@ -1,10 +1,10 @@
 export function isSignedIn() {
-  if (
+  /*if (
     Boolean(sessionStorage.getItem('signed')) &&
     sessionStorage.getItem('user')
   ) {
     return true;
   }
-
+*/
   return false;
 }

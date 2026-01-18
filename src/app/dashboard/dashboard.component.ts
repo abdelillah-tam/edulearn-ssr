@@ -25,7 +25,7 @@ export class DashboardComponent {
   type = '';
 
   constructor(private authService: AuthService) {
-    if (
+   /* if (
       sessionStorage.getItem('user') == null ||
       !sessionStorage.getItem('user')?.length
     ) {
@@ -37,6 +37,6 @@ export class DashboardComponent {
     } else {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       this.type = this.user.type;
-    }
+    }*/
   }
 }

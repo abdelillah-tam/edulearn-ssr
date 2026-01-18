@@ -12,7 +12,7 @@ export const signedInGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  let isSigned = Boolean(sessionStorage.getItem('signed'));
+  let isSigned = true;
 
   if (isSigned === true) {
     return true;
@@ -49,7 +49,7 @@ export const studentGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  let userSessionStorage = sessionStorage.getItem('user');
+  let userSessionStorage = undefined;
 
   if (userSessionStorage && JSON.parse(userSessionStorage).type == 'Student') {
     return true;
@@ -70,7 +70,7 @@ export const instructorGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  let userSessionStorage = sessionStorage.getItem('user');
+  let userSessionStorage = undefined;
 
   if (
     userSessionStorage &&
@@ -78,7 +78,7 @@ export const instructorGuard: CanActivateFn = (route, state) => {
   ) {
     return true;
   }
-  
+
   return authService.isInstructor().pipe(
     map((result) => {
       if (result) {
